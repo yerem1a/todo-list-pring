@@ -1,22 +1,32 @@
 package com.example.todo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
-import java.util.List;
+
+import java.util.Set;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @NotEmpty
+    private String username;
+
+    @NotEmpty
+    private String password;
+
+    @Email
+    @NotEmpty
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Todo> todos;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Todo> todos;
 
-    //Getter and Setters
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -25,26 +35,35 @@ public class User {
         this.id = id;
     }
 
-    public String getName(){
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getEmail(){
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
         return email;
     }
-    public void setEmail(String email){
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public List<Todo> getTodos(){
+    public Set<Todo> getTodos() {
         return todos;
     }
 
-    public void setTodos(List<Todo> todos){
+    public void setTodos(Set<Todo> todos) {
         this.todos = todos;
     }
 }

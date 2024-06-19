@@ -41,4 +41,7 @@ public class TodoService {
                 })
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
     }
+    public List<Todo> getTodosByUser(User user) {
+        return todoRepository.findByUser(user);
+    }
 }
